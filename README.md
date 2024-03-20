@@ -1,0 +1,2 @@
+# flashcard_generator_frontend_capstone
+flashcard generator frontend capstone project
