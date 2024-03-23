@@ -1,80 +1,238 @@
-import React from 'react';
-import { Formik, Form, Field, FieldArray } from 'formik';
-import validationSchema from '../validations/schema/cardsSchema';
+import React, { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { Formik, Form, Field, FieldArray } from "formik";
+import validationSchema from "../validations/schema/cardsSchema";
+import { addGroup } from "../redux/actions/flashaardActions";
+import { v4 as uuidv4 } from "uuid";
+import { Link } from "react-router-dom";
+import {
+  AiOutlineUpload,
+  AiOutlineDelete,
+  AiOutlineEdit,
+  AiOutlinePlus,
+} from "react-icons/ai";
 
-const GroupForm = () => {
+// const TextInput = React.forwardRef((props, ref) => (
+//   <input type="text" {...props} ref={ref} />
+// ));
+const CreateCard = () => {
+  const dispatch = useDispatch();
+  const editRefs = useRef([]);
+
+  // const handleEdit = (index) => {
+  //   if (editRefs.current[index]) {
+  //     editRefs.current[index].focus(); // Focus on the input field
+  //   }
+  // };
+
+  const onSubmit = (values, { resetForm }) => {
+    const groupData = {
+      id: uuidv4(), // Generate UUID for group
+      groupName: values.groupName,
+      groupImage: values.groupImage,
+      groupDescription: values.groupDescription,
+      cards: values.cards.map((member) => ({
+        id: uuidv4(), // Generate UUID for each member
+        name: member.name,
+        image: member.image,
+        description: member.description,
+      })),
+    };
+
+    dispatch(addGroup(groupData));
+    resetForm();
+  };
+
   return (
-    <div className="container mx-auto py-8">
-      <h2 className="text-2xl font-semibold mb-4">Add Group</h2>
+    <div className=" p-2 pt-6 ">
       <Formik
         initialValues={{
-          groupName: '',
-          groupImage: '',
-          groupDescription: '',
-          members: [{ name: '', image: '', description: '' }],
+          groupName: "",
+          groupImage: "",
+          groupDescription: "",
+          cards: [{ name: "", image: "", description: "" }],
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
+        onSubmit={onSubmit}
       >
         {({ values, errors, touched }) => (
-          <Form className="max-w-lg mx-auto">
-            <div className="mb-4">
-              <label htmlFor="groupName" className="block text-sm font-medium text-gray-700">
-                Group Name:
-              </label>
-              <Field
-                type="text"
-                id="groupName"
-                name="groupName"
-                className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
-                  touched.groupName && errors.groupName ? 'border-red-500' : ''
-                }`}
-              />
-              {touched.groupName && errors.groupName && (
-                <div className="text-red-500 mt-1">{errors.groupName}</div>
-              )}
-            </div>
-
-            {/* Other form fields */}
-            <FieldArray name="members">
-              {({ push, remove }) => (
-                <div>
-                  {values.members.map((member, index) => (
-                    <div key={index} className="mb-4">
-                      <label htmlFor={`members.${index}.name`} className="block text-sm font-medium text-gray-700">
-                        Member Name:
-                      </label>
-                      <Field
-                        type="text"
-                        id={`members.${index}.name`}
-                        name={`members.${index}.name`}
-                        className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
-                          touched.members?.[index]?.name && errors.members?.[index]?.name ? 'border-red-500' : ''
-                        }`}
-                      />
-                      {touched.members?.[index]?.name && errors.members?.[index]?.name && (
-                        <div className="text-red-500 mt-1">{errors.members[index].name}</div>
-                      )}
-
-                      {/* Add other member fields */}
-
-                      <button type="button" onClick={() => remove(index)} className="mt-2 bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md">
-                        Remove
-                      </button>
-                    </div>
-                  ))}
-                  <button type="button" onClick={() => push({ name: '', image: '', description: '' })} className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
-                    Add Member
-                  </button>
+          <Form>
+            <div className="border-4 border-red-700 bg-white p-2 md:p-8 rounded-lg">
+              <div className="lg:flex  gap-4 border w-full ">
+                <div className="w-full lg:w-1/2 xl-1/3 p-2 my-2 border border-red-500">
+                  <label
+                    htmlFor="groupName"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Create Group*
+                  </label>
+                  <Field
+                    type="text"
+                    name="groupName"
+                    className="input w-full border-2"
+                  />
+                  {touched.groupName && errors.groupName && (
+                    <div className="error">{errors.groupName}</div>
+                  )}
                 </div>
-              )}
-            </FieldArray>
 
-            <button type="submit" className="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md">
-              Submit
-            </button>
+                <div className=" w-1/2 lg:w-1/3 xl-1/5 border border-2 flex justify-center items-center">
+                  <label
+                    htmlFor="groupImage"
+                    className="input border border-2 rounded-lg  font-semibold text-blue-500 py-2 px-4 cursor-pointer transition-colors  duration-300 hover:bg-blue-100"
+                  >
+                    <AiOutlineUpload className="mr-2 inline-block" /> Upload
+                    Image
+                  </label>
+                  <Field
+                    type="file"
+                    name="groupImage"
+                    className="input disabled:opacity-100 hidden"
+                    id="groupImage"
+                  />
+                  {/* {touched.groupImage && errors.groupImage && (
+                    <div className="error">{errors.groupImage}</div>
+                  )} */}
+                </div>
+              </div>
+
+              <div className="w-full lg:w-1/2 xl-1/3 p-2 my-2 border border-red-500 p-2">
+                <label
+                  htmlFor="groupDescription"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Add Description
+                </label>
+                <Field
+                  type="text"
+                  name="groupDescription"
+                  className="input border-2 w-full"
+                />
+                {touched.groupDescription && errors.groupDescription && (
+                  <div className="error">{errors.groupDescription}</div>
+                )}
+              </div>
+            </div>
+            <div className="flex border-4 border-red-700 bg-white md:p-8 rounded-lg mt-4">
+              <FieldArray name="cards">
+                {({ push, remove }) => (
+                  <div className="w-full">
+                    {values.cards.map((member, index) => (
+                      <div
+                        key={index}
+                        className="flex border w-full p-2 my-2 gap-5 lg:flex-row md:flex-col flex-col"
+                      >
+                        <div>
+                          <h2 className="text-lg flex justify-center font-medium border w-[30px] h-[30px] bg-red-500 rounded-full">
+                            {index + 1}
+                          </h2>
+                        </div>
+                        <div className=" w-full lg:w-1/2 xl-1/3 border border-red-500 p-2">
+                          <label
+                            htmlFor={`cards.${index}.name`}
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            Enter Term
+                          </label>
+                          <Field
+                            type="text"
+                            name={`cards.${index}.name`}
+                            className="input border-2 w-full"
+                        
+                          />
+                          {/* <TextInput
+                            type="text"
+                            name={`cards.${index}.name`}
+                            className="input border-2 w-full"
+                            ref={(el) => (editRefs.current[index] = el)}
+                          /> */}
+                          {/* {touched.cards?.[index]?.name &&
+                            errors.cards?.[index]?.name && (
+                              <small className="error">
+                                {errors.cards[index].name}
+                              </small>
+                            )} */}
+                        </div>
+                        <div className="w-full lg:w-1/2 xl-1/3 border border-red-500 p-2">
+                          <label
+                            htmlFor={`cards.${index}.description`}
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            Enter Defination
+                          </label>
+                          <Field
+                            as="textarea"
+                            name={`cards.${index}.description`}
+                            className="input border-2 w-full"
+                          />
+                          {/* {touched.cards?.[index]?.description &&
+                            errors.cards?.[index]?.description && (
+                              <small className="error">
+                                {errors.cards[index].description}
+                              </small>
+                            )} */}
+                        </div>
+                        <div className="flex gap-2 items-center  w-full md:w-1/2 lg:w-1/4 xl-1/5 border border-red-600 p-2">
+                          <div>
+                            <label
+                              htmlFor={`cards.${index}.image`}
+                              className="input border border-blue-500 border-2 rounded-lg  text-blue-500  py-2 px-4 cursor-pointer transition-colors  duration-300 hover:bg-blue-100"
+                            >
+                              Image
+                            </label>
+                            <input
+                              type="file"
+                              name={`cards.${index}.image`}
+                              id={`cards.${index}.image`}
+                              className="hidden"
+                            />
+                            {/* {touched.cards?.[index]?.image &&
+                              errors.cards?.[index]?.image && (
+                                <small className="error">
+                                  {errors.cards[index].image}
+                                </small>
+                              )} */}
+                          </div>
+                          <div className="text-2xl">
+                            <AiOutlineEdit
+                              type="button"
+                              // onClick={() => handleEdit(index)}
+                              className="transition-colors  duration-300 text-blue-500 border rounded hover:border-blue-500 hover:text-blue-500 m-1"
+                            />
+
+                            <AiOutlineDelete
+                              type="button"
+                              onClick={() => remove(index)}
+                              className="transition-colors  duration-300 text-red-500 border rounded hover:border-red-500 hover:text-red-500 m-1"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    <button
+                      type="button"
+                      className="flex gap-2 text-blue-500"
+                      onClick={() =>
+                        push({ name: "", image: "", description: "" })
+                      }
+                    >
+                      <span className="font-bold p-1">
+                        <AiOutlinePlus className="font-bold" />
+                      </span>
+                      <b> Add More</b>
+                    </button>
+                  </div>
+                )}
+              </FieldArray>
+            </div>
+            <div className="text-center m-2 pt-5">
+              <button
+                type="submit"
+                className="text-center bg-red-600 border-2 p-1 w-[150px] rounded-lg text-white duration-300 hover:text-red-700 hover:font-bold hover:bg-red-500 hover:border-red-700"
+              >
+                Create
+              </button>
+            </div>
           </Form>
         )}
       </Formik>
@@ -82,4 +240,4 @@ const GroupForm = () => {
   );
 };
 
-export default GroupForm;
+export default CreateCard;

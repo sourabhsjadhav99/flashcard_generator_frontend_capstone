@@ -36,3 +36,25 @@ export default App
 
 
 
+// import React from 'react';
+// import GroupForm from '../src/pages/GroupForm';
+// import GroupList from '../src/pages/GroupList';
+
+// const App = () => {
+//   return (
+//     <div className="container mx-auto py-8">
+//       <BrowserRouter>
+
+//         <Routes>
+//           <Route path="/" element={< GroupForm />} />
+//           <Route path="/DisplayCards" element={<GroupList />} />
+
+//           <Route path="*" element={<NoPage />} />
+//         </Routes>
+//       </BrowserRouter>
+
+//     </div>
+//   );
+// };
+
+// export default App;
