@@ -12,19 +12,8 @@ import {
   AiOutlinePlus,
 } from "react-icons/ai";
 
-// const TextInput = React.forwardRef((props, ref) => (
-//   <input type="text" {...props} ref={ref} />
-// ));
 const CreateCard = () => {
   const dispatch = useDispatch();
-  const editRefs = useRef([]);
-
-  // const handleEdit = (index) => {
-  //   if (editRefs.current[index]) {
-  //     editRefs.current[index].focus(); // Focus on the input field
-  //   }
-  // };
-
   const onSubmit = (values, { resetForm }) => {
     const groupData = {
       id: uuidv4(), // Generate UUID for group
@@ -72,7 +61,7 @@ const CreateCard = () => {
                     className="input w-full border-2"
                   />
                   {touched.groupName && errors.groupName && (
-                    <div className="error">{errors.groupName}</div>
+                    <small className="error text-red-600">{errors.groupName}</small>
                   )}
                 </div>
 
@@ -90,9 +79,6 @@ const CreateCard = () => {
                     className="input disabled:opacity-100 hidden"
                     id="groupImage"
                   />
-                  {/* {touched.groupImage && errors.groupImage && (
-                    <div className="error">{errors.groupImage}</div>
-                  )} */}
                 </div>
               </div>
 
@@ -104,12 +90,12 @@ const CreateCard = () => {
                   Add Description
                 </label>
                 <Field
-                  type="text"
+                  as="textarea"
                   name="groupDescription"
                   className="input border-2 w-full"
                 />
                 {touched.groupDescription && errors.groupDescription && (
-                  <div className="error">{errors.groupDescription}</div>
+                  <small className="error text-red-600">{errors.groupDescription}</small>
                 )}
               </div>
             </div>
@@ -140,18 +126,13 @@ const CreateCard = () => {
                             className="input border-2 w-full"
                         
                           />
-                          {/* <TextInput
-                            type="text"
-                            name={`cards.${index}.name`}
-                            className="input border-2 w-full"
-                            ref={(el) => (editRefs.current[index] = el)}
-                          /> */}
-                          {/* {touched.cards?.[index]?.name &&
+                      
+                          {touched.cards?.[index]?.name &&
                             errors.cards?.[index]?.name && (
-                              <small className="error">
+                              <small className="error text-red-600">
                                 {errors.cards[index].name}
                               </small>
-                            )} */}
+                            )}
                         </div>
                         <div className="w-full lg:w-1/2 xl-1/3 border border-red-500 p-2">
                           <label
@@ -165,12 +146,12 @@ const CreateCard = () => {
                             name={`cards.${index}.description`}
                             className="input border-2 w-full"
                           />
-                          {/* {touched.cards?.[index]?.description &&
+                          {touched.cards?.[index]?.description &&
                             errors.cards?.[index]?.description && (
-                              <small className="error">
+                              <small className="error text-red-600">
                                 {errors.cards[index].description}
                               </small>
-                            )} */}
+                            )}
                         </div>
                         <div className="flex gap-2 items-center  w-full md:w-1/2 lg:w-1/4 xl-1/5 border border-red-600 p-2">
                           <div>
@@ -186,17 +167,12 @@ const CreateCard = () => {
                               id={`cards.${index}.image`}
                               className="hidden"
                             />
-                            {/* {touched.cards?.[index]?.image &&
-                              errors.cards?.[index]?.image && (
-                                <small className="error">
-                                  {errors.cards[index].image}
-                                </small>
-                              )} */}
+                        
                           </div>
                           <div className="text-2xl">
                             <AiOutlineEdit
                               type="button"
-                              // onClick={() => handleEdit(index)}
+                              // onClick={}
                               className="transition-colors  duration-300 text-blue-500 border rounded hover:border-blue-500 hover:text-blue-500 m-1"
                             />
 

@@ -11,8 +11,7 @@ import './App.css'
 
 function App() {
   return (
-    <div >
-      <>
+    <div className=" min-h-screen bg-orange-50">
         <Header />
         <div className="lg:px-[80px] lg:py-[40px] md:p-[40px] sm:p-[20px]  xs:p-[20px] p-[10px] bg-orange-50">
           <BrowserRouter>
@@ -20,41 +19,14 @@ function App() {
             <Routes>
               <Route path="/" element={< CreateCard />} />
               <Route path="/DisplayCards" element={<DisplayCards />} />
-              <Route path="/CardDetails" element={<CardDetails />} />
+              <Route path="/CardDetails/:id" element={<CardDetails />} />
               <Route path="*" element={<NoPage />} />
             </Routes>
           </BrowserRouter>
         </div>
-
-
-      </>
-
     </div>
   );
 }
 export default App
 
 
-
-// import React from 'react';
-// import GroupForm from '../src/pages/GroupForm';
-// import GroupList from '../src/pages/GroupList';
-
-// const App = () => {
-//   return (
-//     <div className="container mx-auto py-8">
-//       <BrowserRouter>
-
-//         <Routes>
-//           <Route path="/" element={< GroupForm />} />
-//           <Route path="/DisplayCards" element={<GroupList />} />
-
-//           <Route path="*" element={<NoPage />} />
-//         </Routes>
-//       </BrowserRouter>
-
-//     </div>
-//   );
-// };
-
-// export default App;
