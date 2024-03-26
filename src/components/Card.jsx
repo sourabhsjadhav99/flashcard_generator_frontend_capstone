@@ -1,15 +1,17 @@
 import React from "react";
 import { MdDeleteOutline } from "react-icons/md";
-import {  useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import demoimage from "../assets/images/flashcard.png";
-import { deleteGroup } from '../redux/actions/flashaardActions';
+import { deleteGroup } from "../redux/actions/flashaardActions";
 import { Link } from "react-router-dom";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 const Card = ({ group }) => {
+  // Initialize useDispatch hook to dispatch actions
   const dispatch = useDispatch();
 
   const handleDelete = (groupId) => {
+    // confirm card deletion
     Swal.fire({
       title: "Do you want to delete this card?",
       showCancelButton: true,
@@ -17,7 +19,7 @@ const Card = ({ group }) => {
       denyButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteGroup(groupId));
+        dispatch(deleteGroup(groupId)); // Dispatch deleteGroup action with groupId
         Swal.fire("Deleted!", "Your card has been deleted.", "success");
       }
     });
@@ -26,18 +28,25 @@ const Card = ({ group }) => {
   return (
     <div className="p-2 flex flex-col space-y-3 items-center justify-center rounded-lg w-[20rem] sm:w-[25rem] h-[18rem] relative border-2 border-gray-200 bg-white">
       <div className="absolute -top-8 border rounded-full">
-        {group.groupImage?<img
-          className="rounded-full w-16 h-16 object-cover aspect-square"
-          src={group.groupImage}
-          alt="No img" // Use the group name as alt text for the image
-        />:<img
-          className="rounded-full w-16 h-16 object-cover aspect-square"
-          src={demoimage}
-          alt="No img" // Use the group name as alt text for the image
-        />}
+        {group.groupImage ? (
+          <img
+            className="rounded-full w-16 h-16 object-cover aspect-square"
+            src={group.groupImage}
+            alt="No img" // Use the group name as alt text for the image
+          />
+        ) : (
+          <img
+            className="rounded-full w-16 h-16 object-cover aspect-square"
+            src={demoimage}
+            alt="No img" // Use the group name as alt text for the image
+          />
+        )}
       </div>
       <div className="m-1 absolute top-0 right-0">
-       <button onClick={() => handleDelete(group.id)}> <MdDeleteOutline className="text-gray-600 w-6 h-6 transition-colors duration-300 hover:font-bold hover:text-red-600" /></button>
+        <button onClick={() => handleDelete(group.id)}>
+          {" "}
+          <MdDeleteOutline className="text-gray-600 w-6 h-6 transition-colors duration-300 hover:font-bold hover:text-red-600" />
+        </button>
       </div>
 
       <h2 className="font-bold text-lg">{group?.groupName}</h2>

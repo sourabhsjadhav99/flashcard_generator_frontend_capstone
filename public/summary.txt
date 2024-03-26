@@ -1,0 +1,33 @@
+Flashcard App is React application for managing flashcards, including functionalities for creating flashcard groups, adding cards to groups, displaying cards, and sharing them. Here's a summary of the project based on the code:
+
+Three main pages:
+CreateCard Component (CreateCard.jsx):
+- This component allows users to create flashcard groups and add cards to those groups.
+- It uses Formik for form handling, yup for validation, and state management, along with Redux for centralized state management.
+- Users can upload images for groups and individual cards, with dynamic image handling and base64 conversion.
+- The component supports adding multiple cards to a group dynamically and provides form validation for input fields.
+- Upon form submission, the component dispatches an action to add the created group along with its cards to the Redux store.
+- It also displays success toast messages upon successful card creation and resets the form state after submission.
+
+DisplayCards Component (DisplayCards.jsx):
+This component is responsible for displaying the created flashcard groups with pagination support.
+It retrieves groups from the Redux store using useSelector and renders them as cards using the Card component.
+Pagination functionality is implemented to navigate through multiple pages of flashcard groups.
+
+CardDetails Component (CardDetails.jsx):
+- This component displays the details of a specific flashcard group, including its cards.
+- can navigate between cards within a group, download card images, print card details, and share cards via social media.
+- It uses React Router for routing and useEffect to update the displayed card based on the currentIndex state.
+
+Create Card and cardsReducer:
+cardsReducer:The cardsReducer handles actions related to adding and deleting flashcard groups in the Redux store.
+Create Card(Card.jsx): The Card component is used to display individual flashcard groups with options to delete a group and view its cards.
+
+Pagination and ShareCard Components 
+The Pagination component provides pagination functionality for displaying flashcard groups.
+The ShareCard component implements a popup for sharing card details via social media platforms and copying the card's link.
+
+styling and responsiveness:
+For styling the app Tailwinds.css is used, and app is make fully responsive.
+
+Overall, the project focuses on creating, managing, and sharing flashcards efficiently using React, Redux for state management, Formik for form handling, yup for validation, Tailwinds for css and various UI components for a seamless user experience.

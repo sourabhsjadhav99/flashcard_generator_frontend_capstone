@@ -14,10 +14,12 @@ import {
   WhatsappShareButton,
 } from "react-share";
 
-function ShareCard({setShowSharePopup}) {
+function ShareCard({ setShowSharePopup }) {
   const [copied, setCopied] = useState(false);
-  const url = window.location.href;
 
+  const url = window.location.href; // Get current URL
+
+  // Function to handle copy link click
   const handleCopyClick = () => {
     navigator.clipboard.writeText(url);
     setCopied(true);
@@ -32,7 +34,7 @@ function ShareCard({setShowSharePopup}) {
         <div className="flex justify-end">
           <AiFillCloseCircle
             className="text-xl cursor-pointer transition-colors duration-300 hover:font-bold hover:text-red-600"
-            onClick={() => setShowSharePopup(false)}
+            onClick={() => setShowSharePopup(false)} // Close share popup
           />
         </div>
         <div className="border-b-4">
@@ -50,7 +52,7 @@ function ShareCard({setShowSharePopup}) {
             )}
           </div>
           <div className="flex gap-2 text-2xl">
-            <BiCopy
+            <BiCopy // Copy link on click
               className="cursor-pointer transition-colors duration-300 hover:font-bold hover:text-blue-700"
               onClick={handleCopyClick}
             />

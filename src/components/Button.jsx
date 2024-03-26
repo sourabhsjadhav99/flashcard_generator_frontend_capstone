@@ -1,5 +1,6 @@
+import React from "react";
 
-import React from 'react';
+// reusable button component , used in app contain icon, action name, and function
 
 const Button = ({ icon, text, onClick }) => {
   return (

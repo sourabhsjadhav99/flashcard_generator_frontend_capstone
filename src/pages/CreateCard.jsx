@@ -13,6 +13,8 @@ import {
   AiOutlinePlus,
 } from "react-icons/ai";
 
+
+// to convert images in to base64 
 function convertToBase64(file) {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader();
@@ -33,8 +35,11 @@ const CreateCard = () => {
 
   const [files, setFiles] = useState([]);
 
+  // to hide button after uploading group image 
   const [isImageGroupUploaded, setIsImageGroupUploaded] = useState(false);
 
+
+ // this function is to manipulate card images on form 
   const onUpload = async (img, index) => {
     const base64 = await convertToBase64(img);
     if (index >= files.length) {
@@ -42,7 +47,7 @@ const CreateCard = () => {
       return; // Early exit to prevent unnecessary updates
     }
 
-    // update
+    // update existing image
     files[index] && setFiles([...files.splice(index, 1)]);
 
     // Create a new array using spread syntax
@@ -52,7 +57,9 @@ const CreateCard = () => {
       ...files.slice(index), // Keep elements after the insertion index
     ]);
   };
+
   const onSubmit = (values, { resetForm }) => {
+    
     const groupData = {
       id: uuidv4(), // Generate UUID for group
       groupName: values.groupName,

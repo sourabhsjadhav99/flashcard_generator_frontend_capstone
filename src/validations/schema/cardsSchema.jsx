@@ -1,6 +1,8 @@
 
 import * as Yup from "yup";
 
+//Validations of form fields using yup library
+
 const cardsSchema = Yup.object().shape({
   groupName: Yup.string().max(20, "Group Name Must be less than 20 characters").min(3, "Group Name Must be More Than 2 Characters").required('Group name is required'),
   groupImage: Yup.mixed(),

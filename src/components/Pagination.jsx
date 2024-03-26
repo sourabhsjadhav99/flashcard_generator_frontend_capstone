@@ -1,5 +1,7 @@
 import React from "react";
 
+// Custom Pagination components
+
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const renderPaginationItems = () => {
     const items = [];
@@ -20,32 +22,32 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
   return (
     <>
-    <ul className="pagination flex justify-center items-center mt-4">
-      <li>
-        <button
-          className={`px-3 py-1 mx-1 bg-gray-200 hover:bg-gray-300 rounded-md ${
-            currentPage === 1 ? "cursor-not-allowed opacity-50" : ""
-          }`}
-          onClick={() => onPageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Prev
-        </button>
-      </li>
-      {renderPaginationItems()}
-      <li>
-        <button
-          className={`px-3 py-1 mx-1 bg-gray-200 hover:bg-gray-300 rounded-md ${
-            currentPage === totalPages ? "cursor-not-allowed opacity-50" : ""
-          }`}
-          onClick={() => onPageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </li>
-    </ul>
-    <style>
+      <ul className="pagination flex justify-center items-center mt-4">
+        <li>
+          <button
+            className={`px-3 py-1 mx-1 bg-gray-200 hover:bg-gray-300 rounded-md ${
+              currentPage === 1 ? "cursor-not-allowed opacity-50" : ""
+            }`}
+            onClick={() => onPageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Prev
+          </button>
+        </li>
+        {renderPaginationItems()}
+        <li>
+          <button
+            className={`px-3 py-1 mx-1 bg-gray-200 hover:bg-gray-300 rounded-md ${
+              currentPage === totalPages ? "cursor-not-allowed opacity-50" : ""
+            }`}
+            onClick={() => onPageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </li>
+      </ul>
+      <style>
         {`
           .isActive{
             color: red;
