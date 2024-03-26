@@ -10,13 +10,13 @@ function NavigationBar() {
       <div className="flex font-medium text-gray-500">
           <NavLink
             to={"/"}
-            className="nav-link p-2 transition-colors duration-300 hover:text-red-600"
+            className="nav-link p-2 transition-colors text-xl duration-300 hover:text-red-600"
           >
             Create New
           </NavLink>
           <NavLink
             to={"/DisplayCards"}
-            className="nav-link p-2 transition-colors duration-300 hover:text-red-600"
+            className="nav-link p-2 transition-colors text-xl duration-300 hover:text-red-600"
           >
             My Flashcard
           </NavLink>

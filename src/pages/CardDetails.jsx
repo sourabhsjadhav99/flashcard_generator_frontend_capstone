@@ -2,17 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { BiArrowBack, BiShare } from "react-icons/bi";
-import {
-  AiOutlineDownload,
-  AiFillPrinter,
-  AiOutlineDoubleLeft,
-  AiOutlineDoubleRight,
-} from "react-icons/ai";
+import {AiOutlineDoubleLeft,AiOutlineDoubleRight} from "react-icons/ai";
+import { PiDownload, PiPrinterBold, PiShareFatBold, PiArrowLeftBold    } from "react-icons/pi";
+
 import { useParams, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import ShareCard from "../components/ShareCard";
-import image from "../assets/images/flashcards.png";
+import flashimage from "../assets/images/flashcards.png";
 
 const CardDetails = () => {
   const { id } = useParams();
@@ -24,8 +20,8 @@ const CardDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (group && group.cards.length > 0) {
-      setSelectedCard(group.cards[currentIndex]); // Set the current card based on the currentIndex
+    if (group && group?.cards.length > 0) {
+      setSelectedCard(group?.cards[currentIndex]); // Set the current card based on the currentIndex
     }
   }, [group, currentIndex]);
 
@@ -41,8 +37,8 @@ const CardDetails = () => {
     if (selectedCard) {
       // Create an anchor element to trigger the download
       const anchor = document.createElement("a");
-      anchor.href = selectedCard.image; // Assuming 'image' is the URL of the image to download
-      anchor.download = `${selectedCard.name}.jpg`; // Set the download filename
+      anchor.href = selectedCard?.image; // Assuming 'image' is the URL of the image to download
+      anchor.download = `${selectedCard?.name}.jpg`; // Set the download filename
       document.body.appendChild(anchor);
       anchor.click();
       document.body.removeChild(anchor);
@@ -64,7 +60,7 @@ const CardDetails = () => {
   };
 
   const handleNextCard = () => {
-    if (currentIndex < group.cards.length - 1) {
+    if (currentIndex < group?.cards.length - 1) {
       setCurrentIndex((prevIndex) => prevIndex + 1); // Increase the currentIndex to navigate to the next card
     }
   };
@@ -74,24 +70,24 @@ const CardDetails = () => {
       <section className="py-2">
         <div className="flex text-2xl">
           <div className="p-2" onClick={handleGoBack}>
-            <BiArrowBack className="cursor-pointer transition-colors duration-300 hover:font-bold hover:text-red-600" />
+            <PiArrowLeftBold  className="cursor-pointer transition-colors duration-300 hover:font-bold hover:text-red-600" />
           </div>
           <div className="p-2">
-            <h2 className="font-bold ">{group.groupName}</h2>
-            <p className="text-gray-500 text-lg">{group.groupDescription}</p>
+            <h2 className="font-bold ">{group?.groupName}</h2>
+            <p className="text-gray-500 text-lg">{group?.groupDescription}</p>
           </div>
         </div>
       </section>
 
       <main
-        className="flex justify-between gap-4 flex-col sm:flex-col md:flex-row"
+        className="flex justify-between gap-4 flex-col lg:min-h-[400px] sm:flex-col md:flex-row"
         id="cardImage"
       >
         <aside className="flex flex-col bg-white rounded-lg p-4 md:w-1/5">
           <h2 className="text-xl font-semibold border-b-2">Flashcards</h2>
           <ul className="text-lg">
-            {group.cards.length > 0 ? (
-              group.cards.map((card, index) => (
+            {group?.cards.length > 0 ? (
+              group?.cards.map((card, index) => (
                 <li
                   key={card.id}
                   className={`py-1 transition-colors duration-300 hover:font-bold ${
@@ -112,15 +108,19 @@ const CardDetails = () => {
           className="flex flex-col align-start lg:flex-row p-3 md:p-6  md:w-full bg-white shadow-lg rounded-lg  gap-4"
         >
           <div className="w-full lg:w-1/2 flex justify-center items-center p-2">
-            <img
-              src={image}
+            {selectedCard?.image?<img
+              src={selectedCard?.image}
               alt="no imag"
               className="object-cover max-h-[310px] w-full"
-            />
+            />:<img
+            src={flashimage}
+            alt="no imag"
+            className="object-cover max-h-[310px] w-full"
+          />}
           </div>
-          <div className="w-full lg:w-1/2 p-2 ">
+          <div className="w-full lg:w-1/2 p-2 flex items-start">
             <p className="w-full text-lg pl-4 lg:h-1/2 ">
-              {selectedCard ? selectedCard.description : ""}
+              {selectedCard ? selectedCard?.description : ""}
             </p>
           </div>
         </section>
@@ -128,17 +128,17 @@ const CardDetails = () => {
         <aside className="flex flex-col justify-between md:w-1/5">
           <div className="flex flex-col justify-start align-center item-center md:w-full gap-2">
             <Button
-              icon={<BiShare />}
+              icon={<PiShareFatBold />}
               text={"Share"}
               onClick={handleShareClick}
             />
             <Button
-              icon={<AiOutlineDownload />}
+              icon={<PiDownload />}
               text={"Download"}
               onClick={handleDownload}
             />
             <Button
-              icon={<AiFillPrinter />}
+              icon={<PiPrinterBold  />}
               text={"Print"}
               onClick={handlePrint}
             />
@@ -147,7 +147,7 @@ const CardDetails = () => {
             <button onClick={handlePreviousCard}>
               <AiOutlineDoubleLeft />
             </button>
-            <span>{`${currentIndex + 1}/${group.cards.length}`}</span>
+            <span>{`${currentIndex + 1}/${group?.cards.length}`}</span>
             <button onClick={handleNextCard}>
               <AiOutlineDoubleRight />
             </button>

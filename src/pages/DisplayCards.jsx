@@ -1,15 +1,15 @@
 
-
 import React, { useState } from "react";
 import Pagination from "../components/Pagination";
 import Card from "../components/Card";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { CARDS_PER_PAGE } from "../constants/flashcardConstants";
 const DisplayCards = () => {
   const groups = useSelector((state) => state.cards.groups);
   let navigate=useNavigate()
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = CARDS_PER_PAGE;
   const totalItems = groups.length; // Example total number of items
 
   // Calculate the total number of pages
@@ -28,7 +28,7 @@ const DisplayCards = () => {
   const currentItems = groups.slice(startIndex, endIndex);
 
   return (
-    <div className=" p-2 pt-4 ">
+    <div className=" p-1 sm:p-2 pt-4 ">
       <div className="flex flex-wrap justify-evenly align-center">
         {currentItems.length > 0 ? (
           currentItems.map((group) => (

@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import Facebook from "../assets/images/facebook-icon.svg";
 import Linkedin from "../assets/images/linkedin-icon.svg";

@@ -1,5 +1,5 @@
 
-import { ADD_GROUP, DELETE_GROUP, ADD_MEMBER, DELETE_MEMBER } from '../../constants/flashcardConstants';
+import { ADD_GROUP, DELETE_GROUP} from '../../constants/flashcardConstants';
 
 const initialState = {
   groups: JSON.parse(localStorage.getItem('groups')) || [],
@@ -21,28 +21,6 @@ const cardsReducer = (state = initialState, action) => {
       return {
         ...state,
         groups: newGroupsDel,
-      };
-
-    case ADD_MEMBER:
-      const { groupId, member } = action.payload;
-      const updatedGroupsAddMember = state.groups.map(group =>
-        group.id === groupId ? { ...group, members: [...group.members, member] } : group
-      );
-      localStorage.setItem('groups', JSON.stringify(updatedGroupsAddMember));
-      return {
-        ...state,
-        groups: updatedGroupsAddMember,
-      };
-
-    case DELETE_MEMBER:
-      const { groupId: delGroupId, memberId } = action.payload;
-      const updatedGroupsDelMember = state.groups.map(group =>
-        group.id === delGroupId ? { ...group, members: group.members.filter(mem => mem.id !== memberId) } : group
-      );
-      localStorage.setItem('groups', JSON.stringify(updatedGroupsDelMember));
-      return {
-        ...state,
-        groups: updatedGroupsDelMember,
       };
 
     default:
