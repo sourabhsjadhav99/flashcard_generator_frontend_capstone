@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Formik, Form, Field, FieldArray } from "formik";
 import validationSchema from "../validations/schema/cardsSchema";
@@ -14,7 +14,7 @@ import {
 } from "react-icons/ai";
 
 
-// to convert images in to base64 
+// to convert images in to base64
 function convertToBase64(file) {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader();
@@ -35,11 +35,10 @@ const CreateCard = () => {
 
   const [files, setFiles] = useState([]);
 
-  // to hide button after uploading group image 
+  // to hide button after uploading group image
   const [isImageGroupUploaded, setIsImageGroupUploaded] = useState(false);
 
-
- // this function is to manipulate card images on form 
+  // this function is to manipulate card images on form
   const onUpload = async (img, index) => {
     const base64 = await convertToBase64(img);
     if (index >= files.length) {
@@ -59,7 +58,6 @@ const CreateCard = () => {
   };
 
   const onSubmit = (values, { resetForm }) => {
-    
     const groupData = {
       id: uuidv4(), // Generate UUID for group
       groupName: values.groupName,
@@ -114,31 +112,33 @@ const CreateCard = () => {
                   )}
                 </div>
 
-             {  !isImageGroupUploaded && <div className=" w-1/2 lg:w-1/3 xl-1/5 flex justify-center items-center">
-                  <label
-                    htmlFor="groupImage"
-                    className="input border border-2 rounded-lg  font-semibold text-blue-500 py-2 px-4 cursor-pointer transition-colors  duration-300 hover:bg-blue-100"
-                  >
-                    <AiOutlineUpload className="mr-2 inline-block" /> Upload
-                    Image
-                  </label>
-                  <input
-                    type="file"
-                    name="groupImage"
-                    className="input disabled:opacity-100 hidden"
-                    id="groupImage"
-                    onChange={(e) => {
-                      const file = e.target.files[0];
-                      const reader = new FileReader();
-                      reader.readAsDataURL(file);
-                      reader.onload = () => {
-                        setFieldValue("groupImage", reader.result);
-                      };
+                {!isImageGroupUploaded && (
+                  <div className=" w-1/2 lg:w-1/3 xl-1/5 flex justify-center items-center">
+                    <label
+                      htmlFor="groupImage"
+                      className="input border border-2 rounded-lg  font-semibold text-blue-500 py-2 px-4 cursor-pointer transition-colors  duration-300 hover:bg-blue-100"
+                    >
+                      <AiOutlineUpload className="mr-2 inline-block" /> Upload
+                      Image
+                    </label>
+                    <input
+                      type="file"
+                      name="groupImage"
+                      className="input disabled:opacity-100 hidden"
+                      id="groupImage"
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        const reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onload = () => {
+                          setFieldValue("groupImage", reader.result);
+                        };
 
-                      setIsImageGroupUploaded(true)
-                    }}
-                  />
-                </div>}
+                        setIsImageGroupUploaded(true);
+                      }}
+                    />
+                  </div>
+                )}
               </div>
 
               <div className="w-full lg:w-1/2 xl-1/3 p-2 my-2 p-2">
@@ -167,8 +167,8 @@ const CreateCard = () => {
                     {values.cards.map((member, index) => (
                       <div
                         key={index}
-                        className="flex w-full p-2 my-2 gap-5 lg:flex-row md:flex-col flex-col border-b-2">
-                      
+                        className="flex w-full p-2 my-2 gap-5 lg:flex-row md:flex-col flex-col border-b-2"
+                      >
                         <div>
                           <h2 className="text-lg flex justify-center font-medium border w-[30px] h-[30px] bg-red-500 rounded-full">
                             {index + 1}
@@ -229,15 +229,19 @@ const CreateCard = () => {
                               className="hidden"
                               onChange={(e) => {
                                 const file = e.target.files[0];
-                                onUpload(file, index);
-                                const reader = new FileReader();
-                                reader.readAsDataURL(file);
-                                reader.onload = () => {
-                                  setFieldValue(
-                                    `cards.${index}.image`,
-                                    reader.result
-                                  );
-                                };
+                                if (file) {
+                                  onUpload(file, index);
+                                  const reader = new FileReader();
+                                  reader.readAsDataURL(file);
+                                  reader.onload = () => {
+                                    setFieldValue(
+                                      `cards.${index}.image`,
+                                      reader.result
+                                    );
+                                  };
+                                } else {
+                                  setFieldValue(`cards.${index}.image`, "");
+                                }
                               }}
                             />
                           </div>

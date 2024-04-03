@@ -47,7 +47,7 @@ function ShareCard({ setShowSharePopup }) {
             {copied && (
               <span className="text-green-600">
                 <AiOutlineCheckCircle className="inline-block mr-1" />
-                Link copied to clipboard
+                <div>Link copied to clipboard</div>
               </span>
             )}
           </div>
