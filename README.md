@@ -76,29 +76,29 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 This is a React-based flashcard application that allows users to create, manage, and study flashcards. It includes features such as creating flashcard groups, adding cards to groups, viewing and editing cards, sharing cards, downloading cards, printing cards, and navigating through cards using pagination. The application also includes form validation, image uploading, copying links, and social media sharing functionality.
 
 ### Features
-Create Flashcard Groups
-Add/Edit/Delete Flashcards
-View Flashcards
-Share Flashcards via Social Media
-Download Flashcards as Images
-Print Flashcards
-Pagination for Flashcard Display
-Form Validation for Input Fields
-Image Uploading for Flashcards
-Copy Link Functionality
-Responsive Design for Mobile and Desktop
-Technologies Used
-React.js
-Redux (for state management)
-React Router (for navigation)
-Formik (for form handling)
-Yup (for form validation)
-Tailwind CSS (for styling)
-React Icons (for icons)
-react-share (for social media sharing)
-FileReader API (for converting images to base64)
-UUID (for generating unique IDs)
-SweetAlert2 (for confirmation dialogs)
+Create Flashcard Groups,
+Add/Edit/Delete Flashcards,
+View Flashcards,
+Share Flashcards via Social Media,
+Download Flashcards as Images,
+Print Flashcards,
+Pagination for Flashcard Display,
+Form Validation for Input Fields,
+Image Uploading for Flashcards,
+Copy Link Functionality,
+Responsive Design for Mobile and Desktop,
+Technologies Used,
+React.js,
+Redux (for state management),
+React Router (for navigation),
+Formik (for form handling),
+Yup (for form validation),
+Tailwind CSS (for styling),
+React Icons (for icons),
+react-share (for social media sharing),
+FileReader API (for converting images to base64),
+UUID (for generating unique IDs),
+SweetAlert2 (for confirmation dialogs),
 react-toastify (for notifications)
 
 ### Usage
